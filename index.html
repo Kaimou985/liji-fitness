@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-  <meta name="theme-color" content="#10120f">
+  <meta name="theme-color" content="#0b100a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="力迹">
   <meta name="description" content="个人健身、训练计划和饮食记录">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="icon" href="fitness-frog.png" type="image/png">
+  <link rel="apple-touch-icon" href="fitness-frog.png">
   <link rel="stylesheet" href="styles.css">
   <title>力迹 · 健身训练</title>
 </head>
@@ -18,7 +18,7 @@
   <div class="app-shell">
     <header class="topbar">
       <div><p class="eyebrow" id="todayLabel"></p><h1 id="pageTitle">今天，练得漂亮。</h1></div>
-      <button class="avatar" id="installButton" aria-label="安装应用">K</button>
+      <button class="avatar" id="installButton" aria-label="安装应用"><img src="fitness-frog.png" alt="力迹健身蛙"></button>
     </header>
 
     <main>
@@ -82,7 +82,7 @@
         <div class="data-card"><div class="data-icon">↗</div><div><strong>导出记录备份</strong><span>JSON · 训练计划、动作与饮食（不含照片）</span></div><button id="exportData">导出</button></div>
         <label class="data-card import-card"><div class="data-icon">↙</div><div><strong>恢复数据备份</strong><span>从之前导出的文件恢复</span></div><span class="fake-button">选择</span><input type="file" id="importData" accept="application/json,.json" hidden></label>
         <button class="outline-button full" id="resetDemo">清空并恢复初始状态</button>
-        <div class="about-card"><div class="brand-mark">力</div><div><strong>力迹 LIJI</strong><span>版本 0.2 · PWA Demo</span></div></div>
+        <div class="about-card"><div class="brand-mark"><img src="fitness-frog.png" alt=""></div><div><strong>力迹 LIJI</strong><span>版本 0.3 · PWA</span></div></div>
       </section>
     </main>
 

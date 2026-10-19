@@ -5,10 +5,10 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#10120f",
-  "theme_color": "#10120f",
+  "background_color": "#0b100a",
+  "theme_color": "#0b100a",
   "lang": "zh-CN",
   "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "fitness-frog.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
