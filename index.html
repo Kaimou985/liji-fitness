@@ -110,8 +110,9 @@
   <section class="bottom-sheet tall" id="planSheet" aria-hidden="true">
     <div class="sheet-handle"></div><div class="sheet-header"><div><span class="pill lime">编辑计划</span><h2 id="planSheetDate"></h2></div><button class="close-sheet" data-close="planSheet" aria-label="关闭">×</button></div>
     <div class="plan-type-toggle" id="planTypeToggle"><button class="active" data-type="training">训练日</button><button data-type="rest">休息日</button></div>
-    <label class="field"><span>计划名称</span><input id="planNameInput" placeholder="例如：胸肩训练"></label>
     <div id="planExerciseArea">
+      <div class="field"><span>训练部位（可多选）</span><div class="plan-muscle-select" id="planMuscleSelect"></div></div>
+      <div class="plan-name-preview"><span>计划名称</span><strong id="planNamePreview">请选择训练部位</strong></div>
       <div class="field"><span>选择动作</span><div class="select-add"><select id="planExerciseSelect"></select><button id="addPlanExercise">添加</button></div></div>
       <div class="selected-actions" id="selectedPlanActions"></div>
     </div>
