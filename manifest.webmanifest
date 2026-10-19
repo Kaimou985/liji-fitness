@@ -1,0 +1,14 @@
+{
+  "name": "力迹 · 健身训练",
+  "short_name": "力迹",
+  "description": "个人训练计划、动作库、容量总结与饮食记录",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10120f",
+  "theme_color": "#10120f",
+  "lang": "zh-CN",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

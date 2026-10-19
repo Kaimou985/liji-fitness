@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#10120f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="力迹">
+  <meta name="description" content="个人健身、训练计划和饮食记录">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>力迹 · 健身训练</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div><p class="eyebrow" id="todayLabel"></p><h1 id="pageTitle">今天，练得漂亮。</h1></div>
+      <button class="avatar" id="installButton" aria-label="安装应用">K</button>
+    </header>
+
+    <main>
+      <section class="page active" data-page="today">
+        <div class="week-strip" id="weekStrip"></div>
+        <div id="todayPlan"></div>
+        <div class="section-heading"><h3>训练动作</h3><button class="text-button" id="editTodayPlan">编辑计划</button></div>
+        <div class="exercise-list" id="exerciseList"></div>
+        <section class="photo-section" aria-labelledby="photoTitle">
+          <div class="section-heading photo-heading"><div><h3 id="photoTitle">训练后照片</h3><p id="photoCount">这一天还没有照片</p></div><button class="text-button" id="addWorkoutPhoto">＋ 添加照片</button></div>
+          <label class="photo-date-picker"><span><b>记录日期</b><small>可补录其他日期</small></span><input type="date" id="photoDate"></label>
+          <input type="file" id="workoutPhotoInput" accept="image/*" multiple hidden>
+          <div class="photo-grid" id="photoGrid"></div>
+          <p class="photo-privacy">照片只保存在这台设备，不会上传到服务器。</p>
+        </section>
+      </section>
+
+      <section class="page" data-page="plan">
+        <div class="page-intro compact"><span class="pill ghost">训练安排</span><h2>计划由你来定。</h2><p>每天都可以新增、修改或删除，计划默认保持空白。</p></div>
+        <div class="week-control"><button id="prevWeek" aria-label="上一周">‹</button><strong id="planWeekTitle">本周</strong><button id="nextWeek" aria-label="下一周">›</button></div>
+        <div class="plan-week" id="planWeek"></div>
+        <button class="outline-button full" id="copyWeek">复制本周计划到下周</button>
+        <div class="section-heading library-heading"><div><h3>动作库</h3><p>八类训练部位 · 可添加自定义动作</p></div><button class="text-button" id="addCustomAction">＋ 自定义</button></div>
+        <div class="muscle-chips" id="libraryFilters"></div>
+        <div class="library-list" id="libraryList"></div>
+      </section>
+
+      <section class="page" data-page="food">
+        <div class="page-intro compact"><span class="pill ghost">饮食记录</span><h2>吃了什么，也记一笔。</h2><p>记录食物和大卡，观察每日摄入。</p></div>
+        <label class="date-picker"><span>记录日期</span><input type="date" id="foodDate"></label>
+        <article class="calorie-card"><span>今日已记录</span><div><strong id="foodCalories">0</strong><b>kcal</b></div><small id="foodCount">0 项食物</small></article>
+        <div class="section-heading"><h3>饮食明细</h3><button class="text-button" id="addFood">＋ 添加</button></div>
+        <div class="food-list" id="foodList"></div>
+      </section>
+
+      <section class="page" data-page="stats">
+        <div class="page-intro compact"><span class="pill ghost">训练复盘</span><h2>每个部位，都看得见。</h2></div>
+        <div class="segmented" id="statsRange"><button data-range="day">每日</button><button class="active" data-range="week">每周</button><button data-range="month">每月</button></div>
+        <div class="stat-grid">
+          <article class="stat-card accent"><span>总训练容量</span><strong id="statVolume">0</strong><small>kg</small></article>
+          <article class="stat-card"><span>训练天数</span><strong id="statDays">0</strong><small>天</small></article>
+          <article class="stat-card"><span>动作记录</span><strong id="statSets">0</strong><small>组 / 次</small></article>
+          <article class="stat-card"><span>饮食摄入</span><strong id="statCalories">0</strong><small>kcal</small></article>
+        </div>
+        <article class="chart-card">
+          <div class="card-title-row"><div><span>容量趋势</span><h3 id="chartTitle">本周每日训练容量</h3></div></div>
+          <div class="bar-chart" id="barChart"></div>
+        </article>
+        <article class="chart-card">
+          <div class="card-title-row"><div><span>部位分布</span><h3 id="pieTitle">本周训练部位容量</h3></div></div>
+          <div class="pie-layout"><div class="donut" id="pieChart"><div><strong id="pieTotal">0</strong><span>总容量</span></div></div><div class="pie-legend" id="pieLegend"></div></div>
+        </article>
+        <div class="section-heading"><div><h3>部位统计</h3><p>训练天数 · 动作次数 · 总容量</p></div></div>
+        <div class="body-stats" id="bodyStats"></div>
+        <div class="section-heading"><div><h3>动作明细</h3><p>记录次数与最高重量</p></div></div>
+        <div class="action-stats" id="actionStats"></div>
+      </section>
+
+      <section class="page" data-page="more">
+        <div class="page-intro"><span class="pill ghost">你的数据</span><h2>留在自己手里。</h2><p>计划、动作、训练、饮食和照片只保存在这个浏览器。</p></div>
+        <div class="data-card"><div class="data-icon">↗</div><div><strong>导出记录备份</strong><span>JSON · 训练计划、动作与饮食（不含照片）</span></div><button id="exportData">导出</button></div>
+        <label class="data-card import-card"><div class="data-icon">↙</div><div><strong>恢复数据备份</strong><span>从之前导出的文件恢复</span></div><span class="fake-button">选择</span><input type="file" id="importData" accept="application/json,.json" hidden></label>
+        <button class="outline-button full" id="resetDemo">清空并恢复初始状态</button>
+        <div class="about-card"><div class="brand-mark">力</div><div><strong>力迹 LIJI</strong><span>版本 0.2 · PWA Demo</span></div></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主导航">
+      <button class="active" data-target="today"><span class="nav-icon">⌂</span><span>今天</span></button>
+      <button data-target="plan"><span class="nav-icon">▦</span><span>计划</span></button>
+      <button data-target="food"><span class="nav-icon">◒</span><span>饮食</span></button>
+      <button data-target="stats"><span class="nav-icon">⌁</span><span>总结</span></button>
+      <button data-target="more"><span class="nav-icon">•••</span><span>更多</span></button>
+    </nav>
+  </div>
+
+  <div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+  <section class="bottom-sheet" id="setSheet" aria-hidden="true">
+    <div class="sheet-handle"></div><div class="sheet-header"><div><span class="pill lime">记录训练</span><h2 id="sheetExercise"></h2></div><button class="close-sheet" data-close="setSheet" aria-label="关闭">×</button></div>
+    <p class="sheet-note" id="previousSet"></p>
+    <div class="set-builder-title"><span>每组单独记录</span><small>每组重量和次数都可以不同</small></div>
+    <div class="set-entry-list" id="setEntryList"></div>
+    <button class="add-set-row" id="addSetRow">＋ 添加一组</button>
+    <div class="volume-preview"><span>总训练容量</span><strong id="setVolumePreview">0 kg</strong></div>
+    <button class="primary-button" id="saveSet">保存这些组</button>
+  </section>
+
+  <section class="bottom-sheet tall" id="planSheet" aria-hidden="true">
+    <div class="sheet-handle"></div><div class="sheet-header"><div><span class="pill lime">编辑计划</span><h2 id="planSheetDate"></h2></div><button class="close-sheet" data-close="planSheet" aria-label="关闭">×</button></div>
+    <div class="plan-type-toggle" id="planTypeToggle"><button class="active" data-type="training">训练日</button><button data-type="rest">休息日</button></div>
+    <label class="field"><span>计划名称</span><input id="planNameInput" placeholder="例如：胸肩训练"></label>
+    <div id="planExerciseArea">
+      <div class="field"><span>选择动作</span><div class="select-add"><select id="planExerciseSelect"></select><button id="addPlanExercise">添加</button></div></div>
+      <div class="selected-actions" id="selectedPlanActions"></div>
+    </div>
+    <button class="primary-button" id="savePlan">保存当天计划</button>
+    <button class="danger-button" id="deletePlan">删除当天计划</button>
+  </section>
+
+  <section class="bottom-sheet" id="customActionSheet" aria-hidden="true">
+    <div class="sheet-handle"></div><div class="sheet-header"><div><span class="pill lime">动作库</span><h2>添加自定义动作</h2></div><button class="close-sheet" data-close="customActionSheet" aria-label="关闭">×</button></div>
+    <label class="field"><span>动作名称</span><input id="customActionName" placeholder="例如：地雷管划船"></label>
+    <label class="field"><span>训练部位</span><select id="customActionMuscle"></select></label>
+    <button class="primary-button" id="saveCustomAction">加入动作库</button>
+  </section>
+
+  <section class="bottom-sheet" id="foodSheet" aria-hidden="true">
+    <div class="sheet-handle"></div><div class="sheet-header"><div><span class="pill lime">饮食记录</span><h2>今天吃了什么？</h2></div><button class="close-sheet" data-close="foodSheet" aria-label="关闭">×</button></div>
+    <label class="field"><span>食物名称</span><input id="foodNameInput" placeholder="例如：鸡胸肉饭"></label>
+    <label class="field"><span>热量</span><div class="unit-input"><input id="foodKcalInput" type="number" inputmode="numeric" min="0" placeholder="450"><b>kcal</b></div></label>
+    <button class="primary-button" id="saveFood">保存饮食记录</button>
+  </section>
+
+  <div class="toast" id="toast"></div>
+  <div class="photo-viewer" id="photoViewer" hidden>
+    <button class="photo-viewer-close" id="closePhotoViewer" aria-label="关闭照片">×</button>
+    <img id="photoViewerImage" alt="训练后照片大图">
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
